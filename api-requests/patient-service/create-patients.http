@@ -1,0 +1,7 @@
+#POST Request
+#Create patients
+
+
+curl -X POST http://localhost:4000/patients \
+     -H "Content-Type: application/json" \
+     -d '{"name": "Manirujjaman Akash","email": "akash@example.com","address": "123 Main street","dateOfBirth":"1998-11-06","registeredDate":"2026-02-10" }'

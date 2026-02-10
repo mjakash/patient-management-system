@@ -1,0 +1,4 @@
+#Get all patients
+ curl http://localhost:4000/patients
+ 
+ 
