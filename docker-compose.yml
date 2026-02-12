@@ -39,6 +39,19 @@ services:
     networks:
       - internal
 
+  # New service added from your screenshot
+  billing-service:
+    build:
+      context: ./billing-service
+      dockerfile: Dockerfile
+    container_name: billing-service
+    image: billing-service:latest
+    ports:
+      - "4001:4001"
+      - "9001:9001"
+    networks:
+      - internal
+
 networks:
   internal:
     driver: bridge
