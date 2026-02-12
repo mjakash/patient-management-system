@@ -1,0 +1,4 @@
+grpcurl -plaintext \
+    -d '{"patientId":"12333", "name":"John Doe", "email":"john.doe@example.com"}' \
+    localhost:9001 \
+    BillingService/CreateBillingAccount
