@@ -1,5 +1,5 @@
 #UPDATE Patient
 
-curl -X PUT http://localhost:4000/patients/123e4567-e89b-12d3-a456-426614174000 \
+curl -X PUT http://localhost:4000/patients/123e4567-e89b-12d3-a456-426614174001 \
      -H "Content-Type: application/json" \
-     -d '{"name": "Manirujjaman Akash","email": "akash@example.com","address": "123 Main street","dateOfBirth":"1998-11-06" }'
+     -d '{"name": "Manirujjaman Akash Updated","email": "akash2@example.com","address": "123 Main street","dateOfBirth":"1998-11-06" }'
