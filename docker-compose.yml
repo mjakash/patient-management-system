@@ -1,4 +1,30 @@
+name: patient-management-system
+
 services:
+  kafka:
+    image: apache/kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
+      - "9094:9094"
+    environment:
+      - KAFKA_NODE_ID=0
+      - KAFKA_PROCESS_ROLES=controller,broker
+      - KAFKA_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
+      - KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      - KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=0
+      - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=1
+      - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1
+    networks:
+      - internal
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+
+  # --- PATIENT SERVICE ---
   patient-service:
     build:
       context: ./patient-service
@@ -15,12 +41,14 @@ services:
       - SPRING_SQL_INIT_MODE=always
       - BILLING_SERVICE_ADDRESS=billing-service
       - BILLING_SERVICE_GRPC_PORT=9001
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     networks:
       - internal
     depends_on:
       patient-service-db:
         condition: service_healthy
 
+  # --- PATIENT DATABASE ---
   patient-service-db:
     image: postgres:18-alpine
     container_name: patient-service-db
@@ -41,7 +69,7 @@ services:
     networks:
       - internal
 
-  # New service added from your screenshot
+  # --- BILLING SERVICE ---
   billing-service:
     build:
       context: ./billing-service
@@ -57,3 +85,7 @@ services:
 networks:
   internal:
     driver: bridge
+
+volumes:
+  kafka_data:
+    driver: local
