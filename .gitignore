@@ -1,1 +1,4 @@
 .metadata/
+.DS_Store
+db_volumes/
+**/docker/
