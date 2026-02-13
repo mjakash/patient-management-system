@@ -4,4 +4,4 @@
 
 curl -X POST http://localhost:4000/patients \
      -H "Content-Type: application/json" \
-     -d '{"name": "Manirujjaman Akash with billing","email": "akash22@example.com","address": "123 Main street","dateOfBirth":"1998-11-06","registeredDate":"2026-02-10" }'
+     -d '{"name": "Manirujjaman Akash Kafka test","email": "kafka-test@example.com","address": "123 Main street","dateOfBirth":"1998-11-06","registeredDate":"2026-02-10" }'
