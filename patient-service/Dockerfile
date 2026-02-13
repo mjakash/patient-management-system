@@ -1,4 +1,7 @@
 FROM maven:3.9.11-eclipse-temurin-25-alpine AS builder
+
+RUN apk add --no-cache libc6-compat gcompat
+
 WORKDIR /app
 
 #cache dependency
