@@ -103,6 +103,8 @@ services:
     image: api-gateway:latest
     ports:
       - "4004:4004"
+    depends_on:
+      - patient-service
     networks:
       - internal
 
