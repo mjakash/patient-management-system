@@ -1,0 +1,2 @@
+curl -v -X GET "http://localhost:4005/validate" \
+     -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlckB0ZXN0LmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc3MTA1ODg2OSwiZXhwIjoxNzcxMDk0ODY5fQ.J0bTZKJ8-FJSPoDSlbgidsLNFx19hyuu4xttkTRkojg"
