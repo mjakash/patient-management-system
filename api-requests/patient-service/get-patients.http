@@ -4,5 +4,5 @@
  
  
  
- curl -X GET "http://localhost:4004/api/patients" \
+ curl -v -X GET "http://localhost:4004/api/patients" \
      -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlckB0ZXN0LmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc3MTEzNjgyOCwiZXhwIjoxNzcxMTcyODI4fQ.pHOQjAUmaczDFJe101xe4a28MiFx0sQqR5Tz4e-QCxk"
