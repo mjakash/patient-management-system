@@ -1,3 +1,8 @@
 curl -X POST http://localhost:4005/login \
      -H "Content-Type: application/json" \
      -d '{"email":"testuser@test.com","password":"password123"}'
+     
+     
+curl -X POST http://localhost:4004/auth/login \
+     -H "Content-Type: application/json" \
+     -d '{"email":"testuser@test.com","password":"password123"}'

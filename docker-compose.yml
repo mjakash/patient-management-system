@@ -124,11 +124,9 @@ services:
     image: api-gateway:latest
     ports:
       - "4004:4004"
-    depends_on:
-      - patient-service
     networks:
       - internal
-
+ # --- AUTH SERVICE ---
   auth-service:
     build:
       context: ./auth-service
@@ -143,8 +141,6 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_SQL_INIT_MODE=always
       - JWT_SECRET=rKgEWlw/bX05JGzdSWU3gl8dJaKMtNStO/84Fws2Dz0
-    ports:
-      - "4005:4005"
     depends_on:
       auth-service-db:
         condition: service_healthy
