@@ -3,4 +3,4 @@ curl -v -X GET "http://localhost:4005/validate" \
      
      
 curl -v -X GET "http://localhost:4004/auth/validate" \
-     -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlckB0ZXN0LmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc3MTEzMzczNiwiZXhwIjoxNzcxMTY5NzM2fQ.5bBodWSPXiUbz2x_zKFijTQz-ILOtvQxqKDK-6bGndk"
+     -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlckB0ZXN0LmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc3MTEzNjA1NCwiZXhwIjoxNzcxMTcyMDU0fQ.23X_T3y-AJYgj-mCYxyMcZTDjQw3TIcRo_AoN-GGNI8"
