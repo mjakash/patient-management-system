@@ -468,7 +468,7 @@
      "Ref": "AuthServiceDBSubnetGroupCFE5A552"
     },
     "Engine": "postgres",
-    "EngineVersion": "18.1",
+    "EngineVersion": "17.2",
     "MasterUserPassword": {
      "Fn::Join": [
       "",
@@ -572,7 +572,7 @@
      "Ref": "PatientServiceDBSubnetGroupCED49D16"
     },
     "Engine": "postgres",
-    "EngineVersion": "18.1",
+    "EngineVersion": "17.2",
     "MasterUserPassword": {
      "Fn::Join": [
       "",
@@ -658,7 +658,7 @@
      ],
      "InstanceType": "kafka.m5.xlarge"
     },
-    "ClusterName": "kafka-cluster",
+    "ClusterName": "kafa-cluster",
     "KafkaVersion": "2.8.0",
     "NumberOfBrokerNodes": 1
    }
@@ -704,7 +704,7 @@
        },
        {
         "Name": "JWT_SECRET",
-        "Value": "rKgEWlw/bX05JGzdSWU3gl8dJaKMtNStO/84Fws2Dz0"
+        "Value": "Y2hhVEc3aHJnb0hYTzMyZ2ZqVkpiZ1RkZG93YWxrUkM="
        },
        {
         "Name": "SPRING_DATASOURCE_URL",
@@ -760,7 +760,7 @@
        },
        {
         "Name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
-        "Value": "localhost.localstack.cloud:4510,localhost.localstack.cloud:4511,localhost.localstack.cloud:4512"
+        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
        }
       ],
       "Essential": true,
@@ -966,7 +966,7 @@
       "Environment": [
        {
         "Name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
-        "Value": "localhost.localstack.cloud:4510,localhost.localstack.cloud:4511,localhost.localstack.cloud:4512"
+        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
        }
       ],
       "Essential": true,
@@ -986,8 +986,8 @@
       "Name": "billing-serviceContainer",
       "PortMappings": [
        {
-        "ContainerPort": 40001,
-        "HostPort": 40001,
+        "ContainerPort": 4001,
+        "HostPort": 4001,
         "Protocol": "tcp"
        },
        {
@@ -1165,7 +1165,7 @@
       "Environment": [
        {
         "Name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
-        "Value": "localhost.localstack.cloud:4510,localhost.localstack.cloud:4511,localhost.localstack.cloud:4512"
+        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
        }
       ],
       "Essential": true,
@@ -1421,7 +1421,7 @@
        },
        {
         "Name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
-        "Value": "localhost.localstack.cloud:4510,localhost.localstack.cloud:4511,localhost.localstack.cloud:4512"
+        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
        },
        {
         "Name": "BILLING_SERVICE_ADDRESS",
@@ -1650,7 +1650,7 @@
        "LogDriver": "awslogs",
        "Options": {
         "awslogs-group": {
-         "Ref": "APIGatewayLogGroupCDBB0658"
+         "Ref": "ApiGatewayLogGroupA9770429"
         },
         "awslogs-stream-prefix": "api-gateway",
         "awslogs-region": {
@@ -1719,7 +1719,7 @@
        "Effect": "Allow",
        "Resource": {
         "Fn::GetAtt": [
-         "APIGatewayLogGroupCDBB0658",
+         "ApiGatewayLogGroupA9770429",
          "Arn"
         ]
        }
@@ -1735,7 +1735,7 @@
     ]
    }
   },
-  "APIGatewayLogGroupCDBB0658": {
+  "ApiGatewayLogGroupA9770429": {
    "Type": "AWS::Logs::LogGroup",
    "Properties": {
     "LogGroupName": "/ecs/api-gateway",

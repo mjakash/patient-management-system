@@ -6,3 +6,10 @@ curl -X POST http://localhost:4005/login \
 curl -X POST http://localhost:4004/auth/login \
      -H "Content-Type: application/json" \
      -d '{"email":"testuser@test.com","password":"password123"}'
+     
+     
+lb-8c924cce.elb.localhost.localstack.cloud
+
+curl -X POST http://lb-8c924cce.elb.localhost.localstack.cloud:4004/auth/login \
+     -H "Content-Type: application/json" \
+     -d '{"email":"testuser@test.com","password":"password123"}'
