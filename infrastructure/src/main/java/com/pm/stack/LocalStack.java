@@ -1,8 +1,8 @@
 package com.pm.stack;
 
 
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
+
 
 import software.amazon.awscdk.App;
 import software.amazon.awscdk.AppProps;
@@ -16,6 +16,8 @@ import software.amazon.awscdk.services.ec2.InstanceClass;
 import software.amazon.awscdk.services.ec2.InstanceSize;
 import software.amazon.awscdk.services.ec2.InstanceType;
 import software.amazon.awscdk.services.ec2.Vpc;
+import software.amazon.awscdk.services.ecs.CloudMapNamespaceOptions;
+import software.amazon.awscdk.services.ecs.Cluster;
 import software.amazon.awscdk.services.msk.CfnCluster;
 import software.amazon.awscdk.services.rds.Credentials;
 import software.amazon.awscdk.services.rds.DatabaseInstance;
@@ -27,6 +29,7 @@ import software.amazon.awscdk.services.route53.CfnHealthCheck;
 public class LocalStack extends Stack {
 
 	private final Vpc vpc;
+	private final Cluster ecsCluster;
 
 	public LocalStack(final App scope, final String id, final StackProps props) {
 		super(scope, id, props);
@@ -39,6 +42,7 @@ public class LocalStack extends Stack {
 		CfnHealthCheck authdbHealthCheck = createDbHealthCheck(authServiceDB, "AuthServiceDBHealthCheck");
 		CfnHealthCheck patientdbHealthCheck = createDbHealthCheck(patientServiceDB, "PatientServiceDBHealthCheck");
 		CfnCluster mskCluster = createMskCluster();
+		this.ecsCluster = createEcsCluster();
 
 	}
 
@@ -92,6 +96,20 @@ public class LocalStack extends Stack {
 						.clientSubnets(
 								vpc.getPrivateSubnets().stream().map(ISubnet::getSubnetId).collect(Collectors.toList()))
 						.brokerAzDistribution("DEFAULT").build())
+				.build();
+	}
+	
+	/*
+	 * Create ECS Cluster
+	 */
+	
+	private Cluster createEcsCluster() {
+		return Cluster.Builder
+				.create(this, "PatientManagementCluster")
+				.vpc(vpc)
+				.defaultCloudMapNamespace(CloudMapNamespaceOptions.builder()
+						.name("patient-management.local")
+						.build())
 				.build();
 	}
 
