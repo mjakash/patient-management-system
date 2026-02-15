@@ -1,5 +1,9 @@
 package com.pm.stack;
 
+
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import software.amazon.awscdk.App;
 import software.amazon.awscdk.AppProps;
 import software.amazon.awscdk.BootstraplessSynthesizer;
@@ -7,10 +11,12 @@ import software.amazon.awscdk.RemovalPolicy;
 import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.Token;
+import software.amazon.awscdk.services.ec2.ISubnet;
 import software.amazon.awscdk.services.ec2.InstanceClass;
 import software.amazon.awscdk.services.ec2.InstanceSize;
 import software.amazon.awscdk.services.ec2.InstanceType;
 import software.amazon.awscdk.services.ec2.Vpc;
+import software.amazon.awscdk.services.msk.CfnCluster;
 import software.amazon.awscdk.services.rds.Credentials;
 import software.amazon.awscdk.services.rds.DatabaseInstance;
 import software.amazon.awscdk.services.rds.DatabaseInstanceEngine;
@@ -32,6 +38,7 @@ public class LocalStack extends Stack {
 
 		CfnHealthCheck authdbHealthCheck = createDbHealthCheck(authServiceDB, "AuthServiceDBHealthCheck");
 		CfnHealthCheck patientdbHealthCheck = createDbHealthCheck(patientServiceDB, "PatientServiceDBHealthCheck");
+		CfnCluster mskCluster = createMskCluster();
 
 	}
 
@@ -43,6 +50,9 @@ public class LocalStack extends Stack {
 				.build();
 	}
 	
+	/*
+	 * Create RDB Cluster
+	 */
 	private DatabaseInstance createDatabase(String id, String dbName) {
 		return DatabaseInstance.Builder
 				.create(this, id)
@@ -70,6 +80,18 @@ public class LocalStack extends Stack {
 						.requestInterval(30)
 						.failureThreshold(3)
 						.build())
+				.build();
+	}
+	/*
+	 * Create kafka cluster MSK 
+	 */
+	private CfnCluster createMskCluster() {
+		return CfnCluster.Builder.create(this, "MskCluster").clusterName("kafka-cluster").kafkaVersion("2.8.0")
+				.numberOfBrokerNodes(1)
+				.brokerNodeGroupInfo(CfnCluster.BrokerNodeGroupInfoProperty.builder().instanceType("kafka.m5.xlarge")
+						.clientSubnets(
+								vpc.getPrivateSubnets().stream().map(ISubnet::getSubnetId).collect(Collectors.toList()))
+						.brokerAzDistribution("DEFAULT").build())
 				.build();
 	}
 
